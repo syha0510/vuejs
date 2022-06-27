@@ -1,18 +1,28 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
+  <div id="app">  
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <LoginForm/>
+    <FormNhap/>
+    <MayTinh/>
+    <KienThucb1/>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-
+import LoginForm from './components/Login.vue'
+import FormNhap from './components/FormNhap.vue'
+import MayTinh from './components/MayTinh.vue'
+import KienThucb1 from './components/KienThucb1.vue'
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    HelloWorld,
+    LoginForm,
+    FormNhap,
+    MayTinh,
+    KienThucb1
+}
 }
 </script>
 
