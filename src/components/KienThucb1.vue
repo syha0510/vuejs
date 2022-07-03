@@ -1,6 +1,6 @@
 <template>
 <div>
-    <button @click="handleReverse()">Click</button>
+    <!-- <button @click="handleReverse()">Click</button> -->
 </div>
 </template>
 
@@ -8,6 +8,7 @@
 export default 
 {
   name: 'KienThucb1',
+  msg:'hello cac ban',
   data()
   {
     return{
