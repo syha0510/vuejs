@@ -46,6 +46,7 @@
 
 <script>
     export default {
+        name:'GioHang2',
         data() {
             return {
                 products: [

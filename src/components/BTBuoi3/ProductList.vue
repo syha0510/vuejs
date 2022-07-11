@@ -1,0 +1,140 @@
+<template>
+    <div class="list-data-product">
+       <table border="1">
+            <thead>
+                <th>Mã sản phẩm</th>
+                <th>Tên sản phẩm</th>
+                <th>Đơn giá</th>
+                <th>Số lượng</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+            </thead>
+            <tbody>
+                <tr v-if="items == ''">
+                    <td colspan="6">Không có dữ liệu ......</td>
+                </tr>
+                <tr v-else v-for="(item) in getProduct()" :key="item.id">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ FormatMoney(item.price) }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>
+                        <span v-if="item.quantity > 0" style="color:green;font-weight: bold;">Còn hàng</span>
+                        <span v-else style="color:red;font-weight: bold">Hết hàng</span>
+                    </td>
+                    <td>
+                        <button id="sua" @click="updateProduct(item.id)">Sửa</button>
+                        <button id="xoa" @click="deleteProduct(item.id)">Xóa</button>
+                    </td>
+                </tr>
+            </tbody>
+       </table>
+       
+    </div>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                pageSize: 5,
+                currentPage: 1,
+                total: this.items.length,
+            }
+        },
+        props: {
+            items: {
+                type: Array,
+                default() {
+                    return [];
+                }
+            },
+        },
+        mounted () {           
+            this.getProduct();
+        },
+        updated () {
+            this.getProduct();
+            this.total = this.items.length;
+        },
+        computed: {
+            indexStart() {
+                return (this.currentPage-1)*this.pageSize; 
+            },
+            indexEnd() {
+                return this.indexStart + this.pageSize;
+            }
+        },
+        methods: {
+            FormatMoney(data) {
+                return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(data)
+            },
+            getProduct()
+            {
+                let result = this.items.slice(this.indexStart,this.indexEnd);
+                return result
+            },
+            updateProduct(key)
+            {
+                var data = {
+                    id:key,
+                    active:true,
+                };
+                this.$emit('EventUpdateProduct',data);
+            },
+            deleteProduct(key) {
+                var data = {
+                    id:key,
+                }
+                this.$emit('EventDeleteProduct',data);
+            },
+            
+        },
+    }
+</script>
+
+<style lang="scss" scoped>
+    .list-data-product{
+        width: 60%;
+        box-sizing: border-box;
+        table{
+            width: 100%;
+            height: 400px;
+            border-collapse: collapse;
+            border-color: #80808059;
+            thead{
+                
+                th{
+                    padding: 2%;
+                    background-color: #f2f6fe;
+                }
+            }
+            tbody{
+                
+                td{
+                    padding: 1%;
+                }
+                #sua{
+                    width: 67px;
+                    height: 30px;
+                    border: 1px solid #0080dd;
+                    background-color: #0080dd;
+                    border-radius: 5px;
+                    color: white;
+                    margin-right: 5px;
+                    font-weight: bold;
+                }
+                #xoa{
+                    width: 67px;
+                    height: 30px;
+                    border: 1px solid red;
+                    background-color: red;
+                    border-radius: 5px;
+                    color: white;
+                    font-weight: bold;
+                }
+            }
+        }  //End table
+        
+    } // End list-data-product
+</style> 
