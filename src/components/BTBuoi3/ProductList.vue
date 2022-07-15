@@ -29,7 +29,13 @@
                 </tr>
             </tbody>
        </table>
-       
+       <div class="paginate">
+            <p class="number-page">Hiện thị {{indexStart+1}}-{{toPage()}} trên tổng {{total}} sản phẩm ({{currentPage}} trang)</p>
+            <div class="arrow">
+                <button @click="currentPage--" :disabled="currentPage == 1"> > </button>
+                <button @click="currentPage++" :disabled="currentPage == Math.ceil(total/pageSize)"> > </button>
+            </div>
+       </div>
     </div>
 </template>
 
@@ -88,7 +94,10 @@
                 }
                 this.$emit('EventDeleteProduct',data);
             },
-            
+             toPage() {
+                let toPage = this.currentPage * this.pageSize
+                return toPage < this.items.length ? toPage : this.items.length
+            }
         },
     }
 </script>
@@ -135,6 +144,27 @@
                 }
             }
         }  //End table
-        
+        .paginate{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .arrow{
+                display: flex;
+                justify-content: space-between;
+                button{
+                    width: 25px;
+                    height: 25px;
+                    outline: none;
+                    font-weight: bold;
+                }
+                button:nth-child(1)
+                {
+                    margin-right: 5%;
+                    transform: rotate(180deg);
+                }
+
+                
+            } // End arrow
+        }  //End paginate
     } // End list-data-product
 </style> 
