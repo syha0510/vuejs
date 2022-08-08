@@ -1,8 +1,8 @@
 <template>
-    <el-container>
-        <el-aside width="300px" style="background-color: rgb(238, 241, 246)">
-            <el-menu router:default-active="$route.name" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
-                background-color="#001529" text-color="#fff" active-text-color="#ffd04b" style="height:100%">
+    <el-container >
+        <el-aside width="300px" style="background-color: #001529;height:100vh;">
+            <el-menu router :default-active="$route.name" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+                background-color="#001529" text-color="#fff" active-text-color="#ffd04b" style="height:100vh;text-align: left;" >
 
                  <router-link class="sub-menu" to="/">
                     <el-menu-item index="home">

@@ -1,5 +1,4 @@
 <template>
- 
   <form class="form-login" @submit.prevent="Login()">
     <input type="text" v-model="data.email" placeholder="Email" />
     <span class="error">{{ errors[0].errorEmail }}</span>
@@ -83,8 +82,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  input,
-  .el-button {
+  input,.el-button {
     padding: 2%;
     margin: 2% 0;
     outline: none;

@@ -39,6 +39,28 @@ const routes = [
         component: () => import ('../views/ForgetPassword.vue'),
     }]
 },
+{
+  path: '/learnvuex',
+  name: 'learnvuex',
+  component: () => import ('../components/LearnVuex.vue'),
+},
+{
+  path: '/learnvuex2',
+  name: 'learnvuex2',
+  component: () => import ('../components/LearnVuex2.vue'),
+},
+
+// Buoi7
+{
+  path: '/bai1',
+  name: 'bai1',
+  component: () => import ('../components/Buoi7/BaiTap1.vue'),
+},
+{
+  path: '/bai2',
+  name: 'bai2',
+  component: () => import ('../components/Buoi7/BaiTap2.vue'),
+},
   
   
 ]
