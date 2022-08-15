@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import order from './modules/order'
+import product from './modules/product'
 
 Vue.use(Vuex)
 
@@ -15,6 +17,8 @@ const store = new Vuex.Store({
 
     nullImage:'https://lamdong.gov.vn/Shared%20Documents/images/noPhoto.jpg',
     carts:[],
+
+    
     products:[
         {   
             id:1,
@@ -76,7 +80,10 @@ const store = new Vuex.Store({
   end:5,
   newLists:[]
   },
-
+  modules:{
+    order,
+    product
+  },
 
 
   getters:{

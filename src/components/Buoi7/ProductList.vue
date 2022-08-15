@@ -162,7 +162,7 @@ import { formatMoney } from '@/helper/formatMoney';
                         width: 45px;
                         height: 45px;
                         font-size: 18px;
-                        cursor: pointer;
+                       
                     }
                 }
             }

@@ -62,20 +62,7 @@ import { mapMutations, mapState } from 'vuex'
             resetForm(){
                 this.reset()
             },
-            // watch: {
-            //         "data.email"(value) {
-            //         if (value.length >= 0) {
-            //             this.errors[0].errorEmail = "";
-            //             this.errors[0].active = false;
-            //         }
-            //         },
-            //         "data.password"(value) {
-            //         if (value.length >= 0) {
-            //             this.errors[1].errorPassword = "";
-            //             this.errors[1].active = false;
-            //         }
-            //         }
-            //     }
+            
         },
        
     }

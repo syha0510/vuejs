@@ -4,10 +4,17 @@
             <el-menu router :default-active="$route.name" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
                 background-color="#001529" text-color="#fff" active-text-color="#ffd04b" style="height:100vh;text-align: left;" >
 
-                 <router-link class="sub-menu" to="/">
+                <router-link class="sub-menu" to="/">
                     <el-menu-item index="home">
                     <i class="el-icon-shopping-bag-2"></i>
                     <span>Quản lý sản phẩm</span>
+                    </el-menu-item>
+                 </router-link>
+
+                 <router-link class="sub-menu" to="/order">
+                    <el-menu-item index="order">
+                    <i class="el-icon-shopping-bag-2"></i>
+                    <span>Quản lý hóa đơn</span>
                     </el-menu-item>
                  </router-link>
                 

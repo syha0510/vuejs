@@ -15,6 +15,11 @@ const routes = [
     component: () => import ('../views/OverView.vue'),
   },
   {
+    path: '/order',
+    name: 'order',
+    component: () => import ('../views/OrderView.vue'),
+  },
+  {
     path: '/statiscal',
     name: 'statiscal',
     component: () => import ('../views/StatiscalView.vue'),
@@ -60,6 +65,30 @@ const routes = [
   path: '/bai2',
   name: 'bai2',
   component: () => import ('../components/Buoi7/BaiTap2.vue'),
+},
+{
+  path: '/test',
+  name: 'test',
+  component: () => import ('../components/DemoLodash.vue'),
+},
+
+//buoi9
+
+// api
+{
+  path:'/products', 
+  name:'ListProductAPI',
+  component: () => import('../views/ProductAPI.vue')
+},
+{
+  path:'/products/:id', 
+  name:'deleteProduct',
+  component: () => import('../views/ProductAPI.vue')
+},
+{
+  path:'/products/:id', 
+  name:'updateProduct',
+  component: () => import('../views/ProductAPI.vue')
 },
   
   
