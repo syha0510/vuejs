@@ -13,7 +13,17 @@
             <el-table :data="products" border style="width: 100%">
                 <el-table-column prop="id" label="#" width="180">
                 </el-table-column>
-                <el-table-column prop="name" label="Tên sản phẩm" width="200">
+                <el-table-column align="center" label="Ảnh" width="180">
+                    <template slot-scope="scope">
+                        <div>
+                            <span style="margin-left: 10px">
+                                <img :src="`http://vuecourse.zent.edu.vn/storage/${scope.row.image}`" alt=""
+                                    style="width:50px;height:50px;border-radius: 5px;" />
+                            </span>
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="name" label="Tên sản phẩm" width="max-content">
                 </el-table-column>
                 <el-table-column prop="description" label="Mô tả">
                 </el-table-column>
@@ -52,6 +62,15 @@
                 ]">
                     <el-input type="number" v-model.number="createProduct.price" autocomplete="off"></el-input>
                 </el-form-item>
+
+
+                <el-form-item>
+                    <!-- <input type="file" ref="file"  autocomplete="off"> -->
+                    <PreviewImage @preview="handlePreview" />
+                    <span style="color: red;" class="error" v-if="error.image">{{ error.image[0] }}</span>
+                </el-form-item>
+
+
                 <el-form-item>
                     <el-button type="primary" @click="submitForm('createProduct')">Tạo mới</el-button>
                     <el-button @click="resetForm('createProduct')">Hủy</el-button>
@@ -78,6 +97,11 @@
                 ]">
                     <el-input type="number" v-model.number="formEdit.price" autocomplete="off"></el-input>
                 </el-form-item>
+
+                <el-form-item>
+                    <PreviewImage @preview="handlePreview" :fileUpdate="formEdit.image" />
+                </el-form-item>
+
                 <el-form-item>
                     <el-button type="primary" @click="updateForm('formEdit')">Cập nhật</el-button>
                     <el-button @click="resetForm('formEdit')">Hủy</el-button>
@@ -91,6 +115,7 @@
 
 <script>
 import api from '../api/index'
+import PreviewImage from '@/components/Buoi10/PreviewImage.vue'
 export default {
     data() {
         return {
@@ -102,20 +127,27 @@ export default {
                 name: '',
                 description: '',
                 price: '',
+                image: ''
             },
             formEdit: {
                 id: '',
                 name: '',
                 description: '',
                 price: '',
+                image: ''
             },
             error: {},
             current_page: 1,
             perPage: '',
             total: '',
+
         }
     },
     methods: {
+        handlePreview(data) {
+            this.createProduct.image = data
+            this.formEdit.image = data
+        },
         getList() {
             let data = {
                 search: this.search,
@@ -132,6 +164,12 @@ export default {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
+                    let data = new FormData();
+                    data.append("name", this.createProduct.name);
+                    data.append("description", this.createProduct.description);
+                    data.append("price", this.createProduct.price);
+                    data.append("image", this.createProduct.image);
+                    console.log(this.createProduct.image)
                     api.saveProduct(this.createProduct).then(res => {
                         if (res.status == 200) {
                             this.$notify({
@@ -144,7 +182,8 @@ export default {
                                 name: '',
                                 description: '',
                                 price: ''
-                            }
+                            };
+                            this.createProduct.image = ''
                             this.getList()
                             this.current_page = 1
                         }
@@ -188,19 +227,24 @@ export default {
             });
         },
         handleEdit(data) {
-            this.checkBTN = false
-            this.formEdit = {
-                id: data.id,
-                name: data.name,
-                description: data.description,
-                price: data.price,
-            }
-            this.updateDialog = true
+            this.formEdit.id = data.id,
+                this.formEdit.name = data.name,
+                this.formEdit.description = data.description,
+                this.formEdit.price = data.price,
+                this.formEdit.image = data.image;
+            this.updateDialog = true;
         },
         updateForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    api.updateProduct(this.formEdit).then(res => {
+                    let data = new FormData();
+                    data.append("id", this.formEdit.id);
+                    data.append("name", this.formEdit.name);
+                    data.append("description", this.formEdit.description);
+                    data.append("price", this.formEdit.price);
+                    data.append("image", this.formEdit.image);
+
+                    api.updateProduct(data).then(res => {
                         if (res.status == 200) {
                             this.$notify({
                                 showClose: 'true',
@@ -226,6 +270,9 @@ export default {
     },
     mounted() {
         this.getList()
+    },
+    components: {
+        PreviewImage
     }
 }
 </script>
@@ -234,7 +281,6 @@ export default {
 .content {
     width: 80%;
     margin: 0 auto;
-
 }
 
 .add {

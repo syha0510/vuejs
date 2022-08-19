@@ -91,7 +91,13 @@ const routes = [
   component: () => import('../views/ProductAPI.vue')
 },
   
-  
+// api10
+{
+  path:'/preview', 
+  name:'preview',
+  component: () => import('../components/Buoi10/PreviewImage.vue')
+},
+
 ]
 
 const router = new VueRouter({
